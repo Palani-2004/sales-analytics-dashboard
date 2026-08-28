@@ -1,0 +1,47 @@
+# ==============================
+# Python virtual environments
+# ==============================
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environment variables / secrets
+.env
+.env.*
+
+# ==============================
+# Python generated files
+# ==============================
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# ==============================
+# OS / IDE files
+# ==============================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Temporary files
+# ==============================
+*.tmp
+*.log
+
+# ==============================
+# Jupyter temporary files
+# ==============================
+.ipynb_checkpoints/
+
+# ==============================
+# Power BI temporary/backup
+# ==============================
+*.pbit
+*.tmp
