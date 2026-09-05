@@ -45,3 +45,22 @@ Thumbs.db
 # ==============================
 *.pbit
 *.tmp
+
+# ==============================
+# Accidental Python distribution files
+# ==============================
+/DLLs/
+/Doc/
+/include/
+/Lib/
+/Scripts/
+/tcl/
+/libs/
+
+python.exe
+python3.dll
+python312.dll
+pythonw.exe
+vcruntime140.dll
+vcruntime140_1.dll
+NEWS.txt
