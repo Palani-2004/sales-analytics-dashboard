@@ -8,6 +8,10 @@ The platform transforms transactional sales data into interactive performance an
 
 ---
 
+## Dashboard Preview
+
+![Enterprise Sales Analytics Dashboard](images/dashboard-preview.png)
+
 ## Project Overview
 
 The platform analyzes historical sales transactions across multiple business dimensions to answer questions such as:
