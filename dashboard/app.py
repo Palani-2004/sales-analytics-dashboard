@@ -26,51 +26,537 @@ st.markdown(
     """
     <style>
 
-    /* Main application background */
-    .stApp {
-        background-color: #f8fafc;
-    }
+/* =========================================================
+   GLOBAL THEME
+   ========================================================= */
 
-    /* KPI cards */
-    div[data-testid="stMetric"] {
-        background-color: white;
-        border: 1px solid #e2e8f0;
-        padding: 18px;
-        border-radius: 12px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
+:root {
+    --navy: #142744;
+    --navy-dark: #0f1f38;
+    --navy-light: #1d3557;
 
-    div[data-testid="stMetricLabel"] {
-        font-size: 14px;
-        font-weight: 600;
-    }
+    --page-bg: #f4f7fb;
+    --card-bg: #ffffff;
+    --border: #dce4ef;
 
-    div[data-testid="stMetricValue"] {
-        font-size: 28px;
-        font-weight: 700;
-    }
+    --text-primary: #17253d;
+    --text-secondary: #65748b;
+    --text-muted: #8996a8;
 
-    /* Section spacing */
-    .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
+    --blue: #3f7cf4;
+    --purple: #8064e9;
+    --teal: #19ad9a;
+    --orange: #f2a65a;
 
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        border-right: 1px solid #e2e8f0;
-    }
+    --success-bg: #e8f7f3;
+    --blue-bg: #edf3ff;
+    --purple-bg: #f1edff;
+    --orange-bg: #fff3e4;
 
-    /* Dataframes */
-    div[data-testid="stDataFrame"] {
-        border-radius: 10px;
-        overflow: hidden;
-    }
+    --radius: 10px;
+}
 
-    </style>
+
+/* =========================================================
+   STREAMLIT PAGE
+   ========================================================= */
+
+.stApp {
+    background: #F3F6FB;
+    color: #17253D;
+}
+
+
+/* Main content area */
+
+.main .block-container {
+    max-width: 1500px;
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+}
+
+
+/* =========================================================
+   KPI COLOR ACCENTS
+   ========================================================= */
+
+[data-testid="stHorizontalBlock"] [data-testid="stMetric"]:nth-child(1) {
+    border-left: 4px solid #3F7CF4;
+}
+
+[data-testid="stHorizontalBlock"] [data-testid="stMetric"]:nth-child(2) {
+    border-left: 4px solid #8064E9;
+}
+
+[data-testid="stHorizontalBlock"] [data-testid="stMetric"]:nth-child(3) {
+    border-left: 4px solid #19AD9A;
+}
+
+[data-testid="stHorizontalBlock"] [data-testid="stMetric"]:nth-child(4) {
+    border-left: 4px solid #F2A65A;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+[data-testid="stSidebar"] {
+    background: var(--navy);
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+[data-testid="stSidebar"] > div:first-child {
+    background: var(--navy);
+    padding-top: 1.5rem;
+}
+
+
+/* Sidebar text */
+
+[data-testid="stSidebar"] * {
+    color: #eef4ff;
+}
+
+
+/* Sidebar headings */
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #ffffff;
+}
+
+
+/* Sidebar markdown */
+
+[data-testid="stSidebar"] .stMarkdown {
+    color: #dbe6f5;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+h1 {
+    color: var(--text-primary) !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em;
+}
+
+h2 {
+    color: var(--text-primary) !important;
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+}
+
+h3 {
+    color: var(--text-primary) !important;
+    font-size: 1.05rem !important;
+    font-weight: 650 !important;
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+
+/* =========================================================
+   KPI CARDS
+   ========================================================= */
+
+[data-testid="stMetric"] {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    box-shadow: 0 2px 8px rgba(20,39,68,0.04);
+    min-height: 105px;
+}
+
+
+/* KPI label */
+
+[data-testid="stMetricLabel"] {
+    color: var(--text-secondary) !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+
+/* KPI value */
+
+[data-testid="stMetricValue"] {
+    color: var(--text-primary) !important;
+    font-size: 1.65rem !important;
+    font-weight: 700 !important;
+}
+
+
+/* KPI delta */
+
+[data-testid="stMetricDelta"] {
+    font-size: 0.72rem !important;
+}
+
+/* =========================================================
+   SECTION HEADERS
+   ========================================================= */
+
+.section-header {
+    margin-top: 1.4rem;
+    margin-bottom: 0.8rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D9E2EF;
+    border-left: 5px solid #3F7CF4;
+}
+
+.section-title {
+    color: #17253D;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.section-subtitle {
+    color: #718097;
+    font-size: 0.76rem;
+    margin-top: 0.18rem;
+}
+
+
+/* Section accent colours */
+
+.section-blue {
+    border-left-color: #3F7CF4;
+    background: #EEF4FF;
+}
+
+.section-purple {
+    border-left-color: #8064E9;
+    background: #F3EEFF;
+}
+
+.section-teal {
+    border-left-color: #19AD9A;
+    background: #ECF8F5;
+}
+
+.section-orange {
+    border-left-color: #F2A65A;
+    background: #FFF5E8;
+}
+
+/* =========================================================
+   CONTAINERS / CARDS
+   ========================================================= */
+
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(20,39,68,0.035);
+}
+
+
+/* =========================================================
+   INPUTS / FILTERS
+   ========================================================= */
+
+.stSelectbox label,
+.stMultiSelect label,
+.stDateInput label {
+    color: var(--text-secondary) !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+}
+
+
+/* Selectbox */
+
+div[data-baseweb="select"] > div {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+
+/* Multiselect */
+
+div[data-baseweb="select"] {
+    border-radius: 8px;
+}
+
+/* Sidebar filter controls */
+
+[data-testid="stSidebar"] div[data-baseweb="select"] > div {
+    background: #1D3557 !important;
+    border: 1px solid #3B5578 !important;
+    color: #FFFFFF !important;
+}
+
+[data-testid="stSidebar"] div[data-baseweb="select"] input {
+    color: #FFFFFF !important;
+}
+
+[data-testid="stSidebar"] div[data-baseweb="select"] span {
+    color: #FFFFFF !important;
+}
+
+[data-testid="stSidebar"] div[data-baseweb="select"] svg {
+    fill: #FFFFFF !important;
+}
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+button[data-baseweb="tab"] {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: var(--blue);
+}
+
+
+/* =========================================================
+   DATAFRAMES / TABLES
+   ========================================================= */
+
+[data-testid="stDataFrame"] {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.stButton > button {
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-weight: 600;
+    transition: all 0.15s ease;
+}
+
+.stButton > button:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+
+/* =========================================================
+   EXPANDERS
+   ========================================================= */
+
+[data-testid="stExpander"] {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+
+/* =========================================================
+   DIVIDERS
+   ========================================================= */
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.25rem 0;
+}
+
+
+/* =========================================================
+   ALERTS / INFO BOXES
+   ========================================================= */
+
+[data-testid="stAlert"] {
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+
+/* =========================================================
+   PLOTLY CHART CONTAINERS
+   ========================================================= */
+
+div[data-testid="stPlotlyChart"] {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+}
+
+
+/* =========================================================
+   CUSTOM BUSINESS INSIGHT CARDS
+   ========================================================= */
+
+.insight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 2px 8px rgba(20,39,68,0.035);
+}
+
+.insight-title {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.insight-value {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   FORECAST HIGHLIGHT
+   ========================================================= */
+
+.forecast-card {
+    background: var(--purple-bg);
+    border: 1px solid #ddd4ff;
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+}
+
+.forecast-label {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.forecast-value {
+    color: var(--purple);
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SMALL STATUS LABELS
+   ========================================================= */
+
+.status-success {
+    color: var(--teal);
+    font-weight: 650;
+}
+
+.status-warning {
+    color: var(--orange);
+    font-weight: 650;
+}
+
+.status-info {
+    color: var(--blue);
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--page-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b9c5d5;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8e9db2;
+}
+
+/* =========================================================
+   SIDEBAR MULTISELECT - FINAL DARK THEME
+   ========================================================= */
+
+[data-testid="stSidebar"] div[data-baseweb="select"] > div {
+    background-color: #1D3557 !important;
+    border: 1px solid #3B5578 !important;
+    color: #FFFFFF !important;
+}
+
+[data-testid="stSidebar"] div[data-baseweb="select"] input {
+    color: #FFFFFF !important;
+    background-color: transparent !important;
+}
+
+[data-testid="stSidebar"] div[data-baseweb="select"] input::placeholder {
+    color: #C8D4E5 !important;
+}
+
+[data-testid="stSidebar"] div[data-baseweb="select"] span {
+    color: #FFFFFF !important;
+}
+
+/* Selected filter tags */
+
+[data-testid="stSidebar"] span[data-baseweb="tag"] {
+    background-color: #29466B !important;
+    color: #FFFFFF !important;
+    border: 1px solid #426083 !important;
+}
+
+[data-testid="stSidebar"] span[data-baseweb="tag"] span {
+    color: #FFFFFF !important;
+}
+
+/* Dropdown arrow */
+
+[data-testid="stSidebar"] div[data-baseweb="select"] svg {
+    fill: #FFFFFF !important;
+}
+
+/* Dropdown menu */
+
+div[data-baseweb="popover"] {
+    background-color: #FFFFFF !important;
+}
+
+</style>
     """,
     unsafe_allow_html=True,
 )
+
+def section_header(title, subtitle="", accent="blue"):
+    st.markdown(
+        f"""
+        <div class="section-header section-{accent}">
+            <div class="section-title">{title}</div>
+            {f'<div class="section-subtitle">{subtitle}</div>' if subtitle else ''}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # ============================================================
 # 2. LOAD ENVIRONMENT VARIABLES
@@ -243,6 +729,8 @@ def style_chart(fig, height=420):
     fig.update_layout(
         height=height,
         template="plotly_white",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
         margin=dict(
             l=20,
             r=20,
@@ -250,7 +738,9 @@ def style_chart(fig, height=420):
             b=20,
         ),
         font=dict(
+            family="Arial",
             size=13,
+            color="#17253D",
         ),
         legend=dict(
             orientation="h",
@@ -259,14 +749,22 @@ def style_chart(fig, height=420):
             xanchor="right",
             x=1,
         ),
+        hoverlabel=dict(
+            bgcolor="#FFFFFF",
+            font_color="#17253D",
+        ),
     )
 
     fig.update_xaxes(
         showgrid=False,
+        zeroline=False,
+        linecolor="#D9E2EF",
     )
 
     fig.update_yaxes(
-        gridcolor="lightgray",
+        showgrid=True,
+        gridcolor="#E2E8F0",
+        zeroline=False,
     )
 
     return fig
@@ -959,7 +1457,11 @@ st.caption(
 # 12. MONTHLY SALES TREND
 # ============================================================
 
-st.subheader("📈 Monthly Sales Trend")
+section_header(
+    "Monthly Sales Trend",
+    "Historical monthly revenue movement",
+    "blue"
+)
 
 if filtered_monthly.empty:
 
@@ -974,7 +1476,6 @@ else:
         x="sales_month",
         y="total_sales",
         markers=True,
-        title="Monthly Sales Trend",
     )
     fig.update_yaxes(
         tickprefix="$",
@@ -997,6 +1498,17 @@ else:
 
     fig = style_chart(fig, height=450)
 
+    fig.update_traces(
+        line=dict(
+            color="#3F7CF4",
+            width=2.5,
+        ),
+        marker=dict(
+            color="#3F7CF4",
+            size=6,
+        ),
+    )
+
     st.plotly_chart(
         fig,
         width="stretch",
@@ -1006,7 +1518,11 @@ else:
 # MONTHLY YEAR-OVER-YEAR COMPARISON
 # ============================================================
 
-st.subheader("📈 Monthly YoY Sales Comparison")
+section_header(
+    "Monthly YoY Sales Comparison",
+    "Compare monthly performance against the previous year",
+    "teal"
+)
 
 st.markdown(
     """
@@ -1025,7 +1541,7 @@ available_years = sorted(
 
 if len(available_years) >= 2:
 
-    
+
 
     if len(selected_years) == 1:
 
@@ -1088,7 +1604,7 @@ if len(available_years) >= 2:
         # Aggregate monthly sales
         # ----------------------------------------------------
 
-        yoy_base["order_year"] = (  
+        yoy_base["order_year"] = (
             yoy_base["order_date"].dt.year
         )
 
@@ -1305,7 +1821,11 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.subheader("🏷️ Category Performance")
+    section_header(
+    "Category Performance",
+    "Compare sales contribution across product categories",
+    "blue"
+)
     st.caption(
         "Sales contribution across the selected period and filters."
     )
@@ -1340,6 +1860,14 @@ with col1:
             tickformat=",.0f",
         )
 
+        category_chart = style_chart(
+            category_chart,
+            height=400
+        )
+        category_chart.update_traces(
+            marker_color="#3F7CF4"
+        )
+
         st.plotly_chart(
             category_chart,
             width="stretch",
@@ -1352,7 +1880,11 @@ with col1:
 
 with col2:
 
-    st.subheader("🌎 Regional Performance")
+    section_header(
+    "Regional Performance",
+    "Compare sales performance across regions",
+    "teal"
+)
     st.caption(
         "Regional sales performance within the selected filters."
     )
@@ -1383,10 +1915,17 @@ with col2:
         )
 
         region_chart.update_yaxes(
-        tickprefix="$",
-        tickformat=",.0f",
+            tickprefix="$",
+            tickformat=",.0f",
+        )
+        region_chart = style_chart(
+            region_chart,
+            height=400
         )
 
+        region_chart.update_traces(
+            marker_color="#19AD9A"
+        )
 
         st.plotly_chart(
             region_chart,
@@ -1398,7 +1937,11 @@ with col2:
 # 14. PROFITABILITY ANALYSIS
 # ============================================================
 
-st.subheader("💰 Profitability Analysis")
+section_header(
+    "Profitability Analysis",
+    "Evaluate profit contribution and margin performance",
+    "orange"
+)
 
 profit_data = filtered_category[
     [
@@ -1435,6 +1978,13 @@ if not profit_data.empty:
         tickprefix="$",
         tickformat=",.0f",
     )
+    profit_chart = style_chart(
+        profit_chart,
+        height=400
+    )
+    profit_chart.update_traces(
+        marker_color="#F2A65A"
+    )
 
     st.plotly_chart(
         profit_chart,
@@ -1446,7 +1996,11 @@ if not profit_data.empty:
 # 15. TOP PRODUCTS
 # ============================================================
 
-st.subheader("🏆 Top 10 Products")
+section_header(
+    "Top 10 Products",
+    "Products contributing the highest sales",
+    "blue"
+)
 st.caption(
     "Top products within the currently selected filters."
 )
@@ -1490,7 +2044,11 @@ if not top_products.empty:
 # 16. FORECASTING & FUTURE OUTLOOK
 # ============================================================
 
-st.subheader("🔮 Six-Month Company Sales Forecast")
+section_header(
+    "Six-Month Company Sales Forecast",
+    "Company-wide sales outlook for January–June 2026",
+    "purple"
+)
 
 st.markdown(
     """
@@ -1720,11 +2278,13 @@ else:
 
 
     forecast_fig.update_traces(
+
         hovertemplate=(
             "<b>%{x|%b %Y}</b><br>"
             "Sales: $%{y:,.0f}"
             "<extra></extra>"
         )
+
     )
 
 
@@ -1745,6 +2305,30 @@ else:
         height=500
     )
 
+    forecast_fig.update_traces(
+        selector=dict(name="Historical"),
+        line=dict(
+            color="#3F7CF4",
+            width=2.5,
+        ),
+        marker=dict(
+            color="#3F7CF4",
+            size=6,
+        ),
+    )
+
+    forecast_fig.update_traces(
+        selector=dict(name="Forecast"),
+        line=dict(
+            color="#8064E9",
+            width=2.5,
+        ),
+        marker=dict(
+            color="#8064E9",
+            size=6,
+        ),
+    )
+
     forecast_fig.add_vline(
         x=forecast_start.timestamp() * 1000,
         line_dash="dash",
@@ -1762,7 +2346,11 @@ else:
     # FORECAST VARIANCE ANALYSIS
     # ========================================================
 
-    st.markdown("### 📊 Forecast Variance Analysis")
+    section_header(
+    "Forecast Variance Analysis",
+    "Compare forecast values with recent historical performance",
+    "purple"
+    )
 
     variance_data = forecast.copy()
 
@@ -1828,7 +2416,11 @@ else:
     # FORECAST INTELLIGENCE
     # ========================================================
 
-    st.markdown("### 🧠 Forecast Intelligence")
+    section_header(
+    "Forecast Intelligence",
+    "Business interpretation of the forecast outlook",
+    "purple"
+    )
 
     if forecast_vs_recent_pct > 0:
         outlook_word = "above"
@@ -2276,7 +2868,11 @@ if top_profit_category is not None:
 # 18.5 RISK & OPPORTUNITY INTELLIGENCE
 # ============================================================
 
-st.markdown("### ⚠️ Risk & Opportunity Intelligence")
+section_header(
+    "Risk & Opportunity Intelligence",
+    "Strategic areas requiring attention or continued investment",
+    "orange"
+)
 
 if benchmark_category.empty or benchmark_region.empty:
 
@@ -2473,7 +3069,11 @@ else:
 # 18.8 BUSINESS RECOMMENDATIONS
 # ============================================================
 
-st.markdown("### 🎯 Business Recommendations")
+section_header(
+    "Business Recommendations",
+    "Action-oriented recommendations from the analytical results",
+    "orange"
+)
 
 
 recommendations = []

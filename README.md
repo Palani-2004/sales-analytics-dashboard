@@ -6,11 +6,21 @@ The platform transforms transactional sales data into interactive performance an
 
 > **Dataset note:** The project uses synthetic transactional sales data designed to simulate a realistic business sales environment.
 
----
-
 ## Dashboard Preview
 
 ![Enterprise Sales Analytics Dashboard](images/dashboard-preview.png)
+
+## Key Results
+
+- **15,000** synthetic sales transactions analyzed
+- **$54.30M** total sales across the dataset
+- **$8.22M** total profit across the dataset
+- **15.13%** overall profit margin
+- **6-month** company-wide sales forecast generated
+- **5.81% MAPE** achieved by the selected Seasonal Naive forecasting model during validation
+- Interactive analysis across **Year, Category, and Region**
+
+---
 
 ## Project Overview
 
@@ -68,7 +78,8 @@ The selected filters dynamically update the relevant analytical sections.
 - Monthly sales trend
 - Historical performance
 - Monthly year-over-year comparison
-- Category and regional analysis
+- Category analysis
+- Regional analysis
 
 ### Profitability Analysis
 
@@ -114,6 +125,65 @@ The dashboard automatically surfaces:
 
 ---
 
+## Forecasting Methodology
+
+The forecasting pipeline evaluates multiple time-series approaches using historical monthly sales data and a holdout validation period.
+
+### Models Evaluated
+
+| Model | Validation MAPE |
+|---|---:|
+| Seasonal Naive | **5.81%** |
+| ARIMA(1,1,0) | 9.81% |
+| ARIMA(0,1,1) | 9.85% |
+| ARIMA(0,1,0) | 10.66% |
+
+The **Seasonal Naive model** was selected because it achieved the lowest validation MAPE among the evaluated approaches.
+
+The final model generates a **six-month company-wide forecast from January 2026 through June 2026**.
+
+### Forecast Design
+
+The forecast is intentionally independent of the dashboard's Year, Category, and Region filters.
+
+This keeps the forecast as a consistent company-level planning baseline rather than presenting a filtered subset as a company-wide forecast.
+
+### Forecast Intelligence
+
+The dashboard compares the forecast against recent historical performance to provide additional business context.
+
+The current forecast average is approximately **2.63% above the average monthly sales of the latest three actual months**, indicating a relatively stable near-term outlook rather than a major expected increase or decline.
+
+---
+
+## Data Quality & Validation
+
+The project includes validation checks across the data, SQL aggregation layer, dashboard calculations, and forecasting pipeline.
+
+### Data Quality Checks
+
+- 15,000 transaction records validated
+- No null sales, profit, or order dates
+- No duplicate order IDs
+- No zero or negative sales values
+- No negative quantities
+- Discount values validated
+- Profit and margin calculations validated
+- Delivery-day calculations validated
+
+### Analytical Validation
+
+- Raw transaction totals reconciled against SQL aggregation views
+- Global KPI calculations independently validated
+- Filtered KPI calculations validated against source data
+- Multi-year and cross-filter dashboard behavior tested
+- Empty-filter scenarios handled without application crashes
+- Forecast file validated for row count, date range, null values, and negative predictions
+
+These checks help ensure that the dashboard's analytical outputs are consistent with the underlying transactional data.
+
+---
+
 ## Technology Stack
 
 | Layer | Technology |
@@ -132,44 +202,44 @@ The dashboard automatically surfaces:
 ## Project Architecture
 
 ```text
-                 Raw Sales Data
-                       |
-                       v
-              Data Cleaning / ETL
-                       |
-                       v
-                    MySQL
-                       |
-                       v
-                  sales_raw
-                       |
-          +------------+------------+
-          |            |            |
-          v            v            v
-     SQL Views    Business SQL   Validation
-          |
-          v
-   Python / Pandas
-          |
-    +-----+------+
-    |            |
-    v            v
-Analytics     Forecasting
-    |            |
-    |       Model Evaluation
-    |            |
-    |            v
-    |     Seasonal Naive
-    |            |
-    +-----+------+
-          |
-          v
-   Streamlit Dashboard
-          |
-    +-----+----------------------+
-    |                            |
-    v                            v
-Interactive BI            Forecast Intelligence
-    |
-    v
-Business Recommendations
+                         Raw Sales Data
+                              |
+                              v
+                       Data Cleaning / ETL
+                              |
+                              v
+                            MySQL
+                              |
+                              v
+                          sales_raw
+                              |
+                +-------------+-------------+
+                |             |             |
+                v             v             v
+            SQL Views    Business SQL   Validation
+                |
+                v
+          Python / Pandas
+                |
+          +-----+------+
+          |            |
+          v            v
+      Analytics    Forecasting
+          |            |
+          |       Model Evaluation
+          |            |
+          |            v
+          |      Seasonal Naive
+          |            |
+          +-----+------+
+                |
+                v
+        Streamlit Dashboard
+                |
+        +-------+----------------------+
+        |                              |
+        v                              v
+ Interactive BI              Forecast Intelligence
+        |
+        v
+ Business Recommendations
